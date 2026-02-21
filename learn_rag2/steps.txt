@@ -1,0 +1,9 @@
+| Step | Component            | Purpose                            |
+| ---- | -------------------- | ---------------------------------- |
+| 1    | Install dependencies | Load required tools                |
+| 2    | Load documents       | Bring your domain knowledge        |
+| 3    | Chunking             | Improve retrieval granularity      |
+| 4    | Embedding            | Convert chunks to semantic vectors |
+| 5    | FAISS                | Store & search similar chunks      |
+| 6    | RAG Chain            | Combine retrieval + generation     |
+| 7    | Query                | See RAG in action!                 |
