@@ -36,7 +36,6 @@ query_vector = query_vector / np.linalg.norm(query_vector, axis=1, keepdims=True
 dim = doc_embeddings.shape[1]
 print("Dimensionality of embeddings:", dim)
 
-# Eucleidean distance
 index = faiss.IndexFlatIP(dim)
 print("index:", index)
 index.add(doc_embeddings)
