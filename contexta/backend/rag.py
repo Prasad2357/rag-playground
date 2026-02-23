@@ -33,11 +33,15 @@ def upload_file(
     os.makedirs(UPLOAD_PATH, exist_ok=True)
     file_path = f"{UPLOAD_PATH}/{file.filename}"
     with open(file_path, "wb") as f:
-        f.write(file.file.read())
+        while chunk := file.file.read(1024 * 1024):
+            f.write(chunk)
 
     embedding_model = HuggingFaceEmbeddings(
         model_name="sentence-transformers/all-MiniLM-L6-v2"
     )
+
+    if not os.path.exists(INDEX_PATH):
+        return {"error": "No index found. Upload documents first."}
 
     build_index(embedding_model, file_path)
     
