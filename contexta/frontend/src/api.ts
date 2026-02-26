@@ -19,8 +19,12 @@ export async function uploadFile(file: File): Promise<{ message: string } | { er
     return response.json();
 }
 
-export async function queryRAG(question: string): Promise<QueryResponse> {
+export async function queryRAG(question: string, fileNames?: string[]): Promise<QueryResponse> {
     const params = new URLSearchParams({ question });
+    // Append each selected filename as a repeated `file_names` param
+    if (fileNames && fileNames.length > 0) {
+        fileNames.forEach(name => params.append('file_names', name));
+    }
 
     const response = await fetch(`${BASE_URL}/query?${params.toString()}`, {
         method: 'POST',

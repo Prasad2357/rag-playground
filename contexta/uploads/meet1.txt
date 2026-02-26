@@ -1,0 +1,32 @@
+
+This is a sample Zoom-style transcript.
+
+Meeting: Project Alpha Kick-off - 2025-10-05 10:00 AM
+
+00:00:01 Speaker 1 (Alex): Good morning, everyone. Thanks for joining this kick-off meeting for Project Alpha. Our goal today is to align on the project scope, introduce the core team, and briefly review the timeline.
+
+00:00:15 Speaker 2 (Ben): Good morning, Alex. Excited to get started.
+
+00:00:19 Speaker 3 (Chloe): Hi, I'm Chloe from the design team. Looking forward to this.
+
+00:00:24 Speaker 1 (Alex): Great. Ben, could you quickly walk us through the high-level scope and deliverables?
+
+00:00:30 Speaker 2 (Ben): Absolutely. The main deliverable is the new customer portal, which needs to include features A, B, and C. The scope includes initial user research and two rounds of design iteration, concluding with a fully functional beta release by the end of Q1.
+
+00:00:55 Speaker 3 (Chloe): On the design side, we'll start with wireframing next week, based on the requirements Ben just mentioned. Alex, are we prioritizing feature A or B in the first design sprint?
+
+00:01:10 Speaker 1 (Alex): That’s a good question, Chloe. We should prioritize Feature A as it is a critical path for our early adopters. Let's make sure the design sprint heavily focuses on that functionality first.
+
+00:01:25 Speaker 4 (David): Hi, this is David from development. Just confirming: will the API endpoints for Features A and B be ready for integration testing by mid-November?
+
+00:01:38 Speaker 2 (Ben): Yes, David, that's the current plan. I'll send out the detailed API specification document immediately after this meeting.
+
+00:01:47 Speaker 1 (Alex): Okay, so to summarize the key action items: Ben, you'll share the detailed API spec. Chloe will prioritize Feature A in the wireframing phase, starting next week. David, you're tracking mid-November for integration testing readiness. Does that sound right to everyone?
+
+00:02:05 Speaker 3 (Chloe): Sounds good to me.
+
+00:02:07 Speaker 2 (Ben): Confirmed.
+
+00:02:09 Speaker 4 (David): Yes, confirmed.
+
+00:02:11 Speaker 1 (Alex): Fantastic. I'll schedule our first weekly check-in for next Tuesday. Meeting adjourned. Thank you all.

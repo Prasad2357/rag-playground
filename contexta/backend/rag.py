@@ -15,7 +15,8 @@ from langchain_community.vectorstores import FAISS
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_classic.chains import RetrievalQA
 
-from fastapi import APIRouter, UploadFile, File
+from fastapi import APIRouter, UploadFile, File, Query
+from typing import List, Optional
 
 # ---------- ENV ----------
 load_dotenv()
@@ -120,14 +121,37 @@ def get_vectorstore():
 # ============================================================
 
 @router.post("/query")
-def query_rag(question: str):
-
+def query_rag(
+    question: str,
+    file_names: Optional[List[str]] = Query(default=None)
+):
     db = get_vectorstore()
 
-    retriever = db.as_retriever(
-        search_type="similarity",
-        search_kwargs={"k": 5}
-    )
+    # If specific files are requested fetch more candidates so we have
+    # enough after filtering; otherwise use the standard k.
+    fetch_k = 20 if file_names else 5
+
+    candidate_docs = db.similarity_search(question, k=fetch_k)
+
+    # Filter to only the requested files when specified
+    if file_names:
+        # Normalise requested names to lowercase for comparison
+        requested = {n.lower() for n in file_names}
+        filtered = [
+            doc for doc in candidate_docs
+            if any(
+                os.path.basename(doc.metadata.get("source", "")).lower() == name
+                for name in requested
+            )
+        ]
+        # Fall back to all candidates when the filter returns nothing
+        # (shouldn't happen, but acts as a safety net)
+        source_docs = filtered[:5] if filtered else candidate_docs[:5]
+    else:
+        source_docs = candidate_docs[:5]
+
+    # Build context string from the selected chunks
+    context = "\n\n".join(doc.page_content for doc in source_docs)
 
     llm = ChatGoogleGenerativeAI(
         model="gemini-2.5-flash",
@@ -135,18 +159,25 @@ def query_rag(question: str):
         google_api_key=GOOGLE_API_KEY
     )
 
-    rag_chain = RetrievalQA.from_chain_type(
-        llm=llm,
-        retriever=retriever,
-        return_source_documents=True
+    prompt = (
+        f"Use the following context to answer the question.\n\n"
+        f"Context:\n{context}\n\n"
+        f"Question: {question}\n\n"
+        f"Answer:"
     )
 
-    response = rag_chain.invoke({"query": question})
+    answer = llm.invoke(prompt).content
+
+    # Return deduplicated source file paths
+    seen = set()
+    unique_sources = []
+    for doc in source_docs:
+        src = doc.metadata.get("source", "unknown")
+        if src not in seen:
+            seen.add(src)
+            unique_sources.append(src)
 
     return {
-        "answer": response["result"],
-        "sources": [
-            doc.metadata.get("source", "unknown")
-            for doc in response["source_documents"]
-        ]
+        "answer": answer,
+        "sources": unique_sources
     }
