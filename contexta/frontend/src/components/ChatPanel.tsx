@@ -38,7 +38,13 @@ export function ChatPanel({ files }: ChatPanelProps) {
         setIsLoading(true);
 
         try {
-            const result = await queryRAG(question);
+            // Collect names of explicitly selected files (ready state).
+            // If none are selected, send nothing → backend queries all docs.
+            const selectedNames = files
+                .filter(f => f.status === 'ready' && f.selected)
+                .map(f => f.name);
+
+            const result = await queryRAG(question, selectedNames.length > 0 ? selectedNames : undefined);
 
             const sources = result.sources.map(path => ({
                 path,

@@ -50,6 +50,7 @@ export function Sidebar({ files, onFilesChange }: SidebarProps) {
                 size: file.size,
                 uploadedAt: new Date(),
                 status: 'uploading',
+                selected: false,
             };
 
             onFilesChange((prev: UploadedFile[]) => [...prev, newFile] as UploadedFile[]);
@@ -65,6 +66,12 @@ export function Sidebar({ files, onFilesChange }: SidebarProps) {
                 );
             }
         }
+    }, [onFilesChange]);
+
+    const toggleFileSelection = useCallback((id: string) => {
+        onFilesChange((prev: UploadedFile[]) =>
+            prev.map((f) => (f.id === id ? { ...f, selected: !f.selected } : f)) as UploadedFile[]
+        );
     }, [onFilesChange]);
 
     const onDrop = useCallback((e: React.DragEvent) => {
@@ -84,14 +91,11 @@ export function Sidebar({ files, onFilesChange }: SidebarProps) {
                 Error
             </Badge>
         );
-        return (
-            <Badge variant="secondary" className="text-[10px] px-1.5 py-0 bg-emerald-500/15 text-emerald-400 border-emerald-500/20">
-                Ready
-            </Badge>
-        );
+        return null; // ready files show selection state instead
     };
 
     const readyCount = files.filter(f => f.status === 'ready').length;
+    const selectedCount = files.filter(f => f.selected).length;
 
     return (
         <aside className="w-72 flex-shrink-0 flex flex-col h-full border-r border-border/60">
@@ -155,22 +159,38 @@ export function Sidebar({ files, onFilesChange }: SidebarProps) {
                     </div>
                 )}
 
+                {readyCount > 1 && (
+                    <p className="text-[10px] text-muted-foreground/70 mb-2.5 leading-relaxed">
+                        Click a document to focus chat on it. Multiple can be selected.
+                    </p>
+                )}
+
                 <div className="space-y-2">
                     {files.map((file) => {
                         const ext = file.name.split('.').pop()?.toLowerCase() || 'txt';
                         const isUploading = file.status === 'uploading';
+                        const isReady = file.status === 'ready';
+                        const isSelected = file.selected;
 
                         return (
                             <div
                                 key={file.id}
-                                className="rounded-lg p-2.5 glass transition-all duration-200 hover:bg-primary/5 group"
+                                onClick={() => isReady && toggleFileSelection(file.id)}
+                                className={`
+                                    rounded-lg p-2.5 glass transition-all duration-200 group relative
+                                    ${isReady ? 'cursor-pointer' : 'cursor-default'}
+                                    ${isSelected
+                                        ? 'ring-1 ring-primary/60 bg-primary/8 shadow-[0_0_12px_rgba(139,92,246,0.15)]'
+                                        : isReady ? 'hover:bg-primary/5 hover:ring-1 hover:ring-primary/20' : ''
+                                    }
+                                `}
                             >
                                 <div className="flex items-center gap-2.5">
                                     <FileIcon ext={ext} />
                                     <div className="flex-1 min-w-0">
                                         <Tooltip>
                                             <TooltipTrigger asChild>
-                                                <p className="text-xs font-medium truncate text-foreground/90 cursor-default">
+                                                <p className={`text-xs font-medium truncate cursor-default ${isSelected ? 'text-primary' : 'text-foreground/90'}`}>
                                                     {file.name}
                                                 </p>
                                             </TooltipTrigger>
@@ -180,7 +200,25 @@ export function Sidebar({ files, onFilesChange }: SidebarProps) {
                                         </Tooltip>
                                         <p className="text-[10px] text-muted-foreground mt-0.5">{formatSize(file.size)}</p>
                                     </div>
-                                    {statusBadge(file.status)}
+
+                                    {/* Status or selection indicator */}
+                                    {isReady ? (
+                                        <div className={`
+                                            w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-200
+                                            ${isSelected
+                                                ? 'bg-primary text-white'
+                                                : 'bg-muted-foreground/20 group-hover:bg-primary/20'
+                                            }
+                                        `}>
+                                            {isSelected && (
+                                                <svg className="w-2.5 h-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                                                    <polyline points="20 6 9 17 4 12" />
+                                                </svg>
+                                            )}
+                                        </div>
+                                    ) : (
+                                        statusBadge(file.status)
+                                    )}
                                 </div>
                                 {isUploading && (
                                     <Progress value={undefined} className="mt-2 h-0.5 bg-border" />
@@ -196,6 +234,18 @@ export function Sidebar({ files, onFilesChange }: SidebarProps) {
                     </div>
                 )}
             </div>
+
+            {/* Query scope indicator */}
+            {readyCount > 0 && (
+                <div className="px-4 pb-3">
+                    <div className={`rounded-lg px-3 py-2 text-[10px] flex items-center gap-2 transition-all duration-300 ${selectedCount > 0 ? 'bg-primary/10 text-primary border border-primary/20' : 'bg-muted/40 text-muted-foreground border border-border/40'}`}>
+                        <div className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${selectedCount > 0 ? 'bg-primary' : 'bg-muted-foreground/40'}`} />
+                        {selectedCount > 0
+                            ? `Querying ${selectedCount} selected doc${selectedCount !== 1 ? 's' : ''}`
+                            : 'Querying all documents'}
+                    </div>
+                </div>
+            )}
 
             {/* Footer */}
             <div className="p-4 border-t border-border/60">

@@ -1,0 +1,289 @@
+Sanskar Khandelwal
+0 minutes 7 seconds0:07
+Sanskar Khandelwal 0 minutes 7 seconds
+There we can start now.
+
+Bishwomkar Panigrahi
+0 minutes 12 seconds0:12
+Bishwomkar Panigrahi 0 minutes 12 seconds
+OK, so I'll go ahead with my updates. On my last working day that is Friday, I was majorly working on the part where we had to we have to make the account ID optional both for legacy objects and campfire object. So I was dealing with the reimport part. So earlier in reimport we had this logic of composite key where we were.
+Bishwomkar Panigrahi 0 minutes 32 seconds
+Using account ID as well as account name to map them and then to store it. But now since we are making the account ID optional, we have to think of a way where we can only use the account name. But scenario was that somewhere account name were multiple like same account name existed.
+Bishwomkar Panigrahi 0 minutes 47 seconds
+With different kind of like appear like same account names such as account receivable exists multiple times. So we made sure that the duplication should be handled and that's how we we are handling right that about that right now.
+
+Sanskar Khandelwal
+0 minutes 47 seconds0:47
+Sanskar Khandelwal 0 minutes 47 seconds
+8.
+
+Bishwomkar Panigrahi
+1 minute 4 seconds1:04
+Bishwomkar Panigrahi 1 minute 4 seconds
+So I made the account name compulsory only and the mapping logic now uses that only. So yeah, that part is completed. So I think account ID optional field which we had to make was was is already completed. Shagufta was doing the round of testing on that.
+Bishwomkar Panigrahi 1 minute 21 seconds
+So I'll take a update from her side about how she like if she faced any issue about that. Apart from that, I also connected with Balraj to understand a new feature which we wanted to implement. So I'll start working on that today.
+
+Sanskar Khandelwal
+1 minute 46 seconds1:46
+Sanskar Khandelwal 1 minute 46 seconds
+Exit.
+
+Yashraj Aware
+1 minute 52 seconds1:52
+Yashraj Aware 1 minute 52 seconds
+Hey, hi, good morning. So on Friday me and Akshat were working on the legacy, sorry, sorry about when we were working on the Bigbooks integration. So Selesha said that the he required to review the designs what we shared.
+Yashraj Aware 2 minutes 10 seconds
+So we shared the designs with him and we got an approval. Today we will be degrading the QuickBooks functionality in into the into the integrations part. Siddhant has shared one markdown file how the integration flow would be there, so that would be there also earlier this morning.
+Bhargavi Yenigalla 19 minutes 52 seconds
+OK, right.
+
+Yashraj Aware
+19 minutes 54 seconds19:54
+Yashraj Aware 19 minutes 54 seconds
+Mhm.
+BY
+Bhargavi Yenigalla
+19 minutes 57 seconds19:57
+Bhargavi Yenigalla 19 minutes 57 seconds
+Oh.
+Bhargavi Yenigalla 19 minutes 59 seconds
+and here I haven't selected a group without any I was able to create a group without any that cannot be the key.
+
+Yashraj Aware
+20 minutes 17 seconds20:17
+Yashraj Aware 20 minutes 17 seconds
+So that's a like I don't know Sanskar if you are there, can you answer this? Because through the back end functionality what we have seen is that the users and the features, those are optional.
+Yashraj Aware 20 minutes 33 seconds
+Means the user can create a group with name and description and he can later on add the members also.
+Yashraj Aware 20 minutes 42 seconds
+But uh, that's kind of like a editable. Also we can make the user list compulsory.
+BY
+Bhargavi Yenigalla
+20 minutes 57 seconds20:57
+Bhargavi Yenigalla 20 minutes 57 seconds
+So now, because I haven't given any license to the user, um today I'll be testing by giving license and whether it is allowing the numbers to be like...
+Bhargavi Yenigalla 21 minutes 14 seconds
+It's not mandatory, right? As you said, I'm not used to your voices. Sorry, I don't know who had spoken, so.
+Bhargavi Yenigalla 21 minutes 22 seconds
+umm So this is one thing. Today I'll be testing with licenses, and again, everything will be tested today. It's done without licenses.
+Bhargavi Yenigalla 21 minutes 35 seconds
+These were my initial application, so today it will be a little thorough.
+Bhargavi Yenigalla 21 minutes 40 seconds
+It's like.
+
+Sanskar Khandelwal
+21 minutes 43 seconds21:43
+Sanskar Khandelwal 21 minutes 43 seconds
+Hey, sorry, I'm back. I was on all the sellers, so that is that is was on mute here.
+BY
+Bhargavi Yenigalla
+21 minutes 49 seconds21:49
+Bhargavi Yenigalla 21 minutes 49 seconds
+No problem.
+
+Sanskar Khandelwal
+21 minutes 52 seconds21:52
+Sanskar Khandelwal 21 minutes 52 seconds
+So I heard all the bugs. So I think the PON would be the different users are getting add to groups, right? Maybe some problem related to IDs. So as far as we can connect after this call to get that sorted first.
+BY
+Bhargavi Yenigalla
+22 minutes 6 seconds22:06
+Bhargavi Yenigalla 22 minutes 6 seconds
+Mm.
+
+Yashraj Aware
+22 minutes 13 seconds22:13
+Yashraj Aware 22 minutes 13 seconds
+Show some stuff.
+
+Sanskar Khandelwal
+22 minutes 15 seconds22:15
+Sanskar Khandelwal 22 minutes 15 seconds
+And then the UX related things you can take a look later or if you need my help at any place you can connect and can close that.
+
+Yashraj Aware
+22 minutes 26 seconds22:26
+Yashraj Aware 22 minutes 26 seconds
+Understood. Yes.
+Yashraj Aware 22 minutes 30 seconds
+Oh, oh, OK.
+BY
+Bhargavi Yenigalla
+22 minutes 34 seconds22:34
+Bhargavi Yenigalla 22 minutes 34 seconds
+So any update on the loop stories?
+Bhargavi Yenigalla 22 minutes 38 seconds
+Curation.
+Bhargavi Yenigalla 22 minutes 40 seconds
+Mhm.
+
+Sanskar Khandelwal
+22 minutes 42 seconds22:42
+Sanskar Khandelwal 22 minutes 42 seconds
+I.
+Sanskar Khandelwal 22 minutes 44 seconds
+I created one user story for user management but I have not added.
+Sanskar Khandelwal 22 minutes 52 seconds
+Oh, these things.
+Sanskar Khandelwal 22 minutes 55 seconds
+Acceptance criteria and all those things. I'll just add description and then if you go to sprints you should see that I'll add my tasks over there.
+BY
+Bhargavi Yenigalla
+23 minutes 1 second23:01
+Bhargavi Yenigalla 23 minutes 1 second
+Yeah, please.
+Bhargavi Yenigalla 23 minutes 8 seconds
+ohh So we are going to have this.
+Bhargavi Yenigalla 23 minutes 15 seconds
+Acceptance criteria on for the description acceptance criteria.
+
+Sanskar Khandelwal
+23 minutes 19 seconds23:19
+Sanskar Khandelwal 23 minutes 19 seconds
+Yes, so I'll do it in three like the user stories when is the user management, the profile management groups and then roles. I'll create stories for all of those.
+BY
+Bhargavi Yenigalla
+23 minutes 33 seconds23:33
+Bhargavi Yenigalla 23 minutes 33 seconds
+Yeah, sure. So that, yeah, as per each acceptance criteria, I'll be having.
+
+Sanskar Khandelwal
+23 minutes 42 seconds23:42
+Sanskar Khandelwal 23 minutes 42 seconds
+Yes.
+BY
+Bhargavi Yenigalla
+23 minutes 45 seconds23:45
+Bhargavi Yenigalla 23 minutes 45 seconds
+Yeah, that's all from my end. So I'll I'll update. I mean, I'll update with my observation data group.
+
+Sanskar Khandelwal
+23 minutes 55 seconds23:55
+Sanskar Khandelwal 23 minutes 55 seconds
+OK.
+Sanskar Khandelwal 23 minutes 59 seconds
+So the messaging that we show on the UI, right? Can you send out a message on our chat so that we can get a confirmation from Sandesh?
+BY
+Bhargavi Yenigalla
+24 minutes 5 seconds24:05
+Bhargavi Yenigalla 24 minutes 5 seconds
+Yeah.
+Bhargavi Yenigalla 24 minutes 13 seconds
+What exactly needs to that is that what you yeah.
+
+Sanskar Khandelwal
+24 minutes 15 seconds24:15
+Sanskar Khandelwal 24 minutes 15 seconds
+The first one you mentioned, right? There is some inappropriate message, so we can just.
+BY
+Bhargavi Yenigalla
+24 minutes 20 seconds24:20
+Bhargavi Yenigalla 24 minutes 20 seconds
+So.
+
+Sanskar Khandelwal
+24 minutes 23 seconds24:23
+Sanskar Khandelwal 24 minutes 23 seconds
+Send a message and we can reply.
+BY
+Bhargavi Yenigalla
+24 minutes 27 seconds24:27
+Bhargavi Yenigalla 24 minutes 27 seconds
+Expected one.
+
+Sanskar Khandelwal
+24 minutes 29 seconds24:29
+Sanskar Khandelwal 24 minutes 29 seconds
+Yes.
+BY
+Bhargavi Yenigalla
+24 minutes 30 seconds24:30
+Bhargavi Yenigalla 24 minutes 30 seconds
+OK.
+Bhargavi Yenigalla 24 minutes 37 seconds
+I can have no no role, no existing role, whatever it is, whatever.
+
+Sanskar Khandelwal
+24 minutes 45 seconds24:45
+Sanskar Khandelwal 24 minutes 45 seconds
+Yes.
+Sanskar Khandelwal 24 minutes 47 seconds
+Access groups. Maybe we missed it to rename it to role was access group earlier, but again again check it.
+BY
+Bhargavi Yenigalla
+24 minutes 52 seconds24:52
+Bhargavi Yenigalla 24 minutes 52 seconds
+Oh.
+Bhargavi Yenigalla 24 minutes 56 seconds
+OK.
+
+Sanskar Khandelwal
+24 minutes 56 seconds24:56
+Sanskar Khandelwal 24 minutes 56 seconds
+I will just replace that access group with role.
+BY
+Bhargavi Yenigalla
+24 minutes 59 seconds24:59
+Bhargavi Yenigalla 24 minutes 59 seconds
+Yeah, yeah, that should be fine. Anything, anything relevant?
+
+Sanskar Khandelwal
+25 minutes 4 seconds25:04
+Sanskar Khandelwal 25 minutes 4 seconds
+OK.
+BY
+Bhargavi Yenigalla
+25 minutes 7 seconds25:07
+Bhargavi Yenigalla 25 minutes 7 seconds
+Right.
+
+Sanskar Khandelwal
+25 minutes 9 seconds25:09
+Sanskar Khandelwal 25 minutes 9 seconds
+OK.
+BY
+Bhargavi Yenigalla
+25 minutes 10 seconds25:10
+Bhargavi Yenigalla 25 minutes 10 seconds
+OK.
+
+Sanskar Khandelwal
+25 minutes 14 seconds25:14
+Sanskar Khandelwal 25 minutes 14 seconds
+If uh, we don't have anything, we can close this call.
+BN
+Balraj Narala
+25 minutes 23 seconds25:23
+Balraj Narala 25 minutes 23 seconds
+OK. Thank you.
+BY
+Bhargavi Yenigalla
+25 minutes 24 seconds25:24
+Bhargavi Yenigalla 25 minutes 24 seconds
+Thank you very much.
+
+Sanskar Khandelwal
+25 minutes 26 seconds25:26
+Sanskar Khandelwal 25 minutes 26 seconds
+Thank you. Vishaj, call me.
+
+Yashraj Aware
+25 minutes 29 seconds25:29
+Yashraj Aware 25 minutes 29 seconds
+umm Thank you, Tim.
+
+Bishwomkar Panigrahi
+25 minutes 29 seconds25:29
+Bishwomkar Panigrahi 25 minutes 29 seconds
+Thank you.
+
+Akshat Garg
+25 minutes 29 seconds25:29
+Akshat Garg 25 minutes 29 seconds
+Thank you.
+
+Sanskar Khandelwal
+25 minutes 31 seconds25:31
+Sanskar Khandelwal 25 minutes 31 seconds
+Thank you.

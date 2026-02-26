@@ -20,6 +20,7 @@ export interface UploadedFile {
     size: number;
     uploadedAt: Date;
     status: 'uploading' | 'ready' | 'error';
+    selected: boolean;
 }
 
 export interface QueryResponse {
