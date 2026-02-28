@@ -53,7 +53,11 @@ export function Sidebar({ files, onFilesChange }: SidebarProps) {
                 selected: false,
             };
 
-            onFilesChange((prev: UploadedFile[]) => [...prev, newFile] as UploadedFile[]);
+            // Remove any existing entry with the same name (e.g. from a previous session)
+            // before adding the new uploading entry.
+            onFilesChange((prev: UploadedFile[]) =>
+                [...prev.filter((f) => f.name !== file.name), newFile] as UploadedFile[]
+            );
 
             try {
                 await uploadFile(file);
@@ -72,6 +76,16 @@ export function Sidebar({ files, onFilesChange }: SidebarProps) {
         onFilesChange((prev: UploadedFile[]) =>
             prev.map((f) => (f.id === id ? { ...f, selected: !f.selected } : f)) as UploadedFile[]
         );
+    }, [onFilesChange]);
+
+    const toggleAllSelection = useCallback(() => {
+        // If every ready file is already selected → deselect all; otherwise select all ready files.
+        onFilesChange((prev: UploadedFile[]) => {
+            const allSelected = prev.filter(f => f.status === 'ready').every(f => f.selected);
+            return prev.map(f =>
+                f.status === 'ready' ? { ...f, selected: !allSelected } : f
+            ) as UploadedFile[];
+        });
     }, [onFilesChange]);
 
     const onDrop = useCallback((e: React.DragEvent) => {
@@ -96,6 +110,7 @@ export function Sidebar({ files, onFilesChange }: SidebarProps) {
 
     const readyCount = files.filter(f => f.status === 'ready').length;
     const selectedCount = files.filter(f => f.selected).length;
+    const allSelected = readyCount > 0 && files.filter(f => f.status === 'ready').every(f => f.selected);
 
     return (
         <aside className="w-72 flex-shrink-0 flex flex-col h-full border-r border-border/60">
@@ -163,6 +178,17 @@ export function Sidebar({ files, onFilesChange }: SidebarProps) {
                     <p className="text-[10px] text-muted-foreground/70 mb-2.5 leading-relaxed">
                         Click a document to focus chat on it. Multiple can be selected.
                     </p>
+                )}
+
+                {readyCount > 1 && (
+                    <div className="flex items-center justify-end mb-2.5">
+                        <button
+                            onClick={toggleAllSelection}
+                            className="text-[10px] font-medium text-primary hover:text-primary/80 transition-colors duration-150"
+                        >
+                            {allSelected ? 'Deselect All' : 'Select All'}
+                        </button>
+                    </div>
                 )}
 
                 <div className="space-y-2">

@@ -27,3 +27,9 @@ export interface QueryResponse {
     answer: string;
     sources: string[];
 }
+
+export interface DocumentMeta {
+    name: string;
+    size: number;
+    uploadedAt: number; // Unix timestamp (seconds)
+}
