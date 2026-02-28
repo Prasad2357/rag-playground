@@ -1,6 +1,13 @@
-import type { QueryResponse } from './types';
+import type { QueryResponse, DocumentMeta } from './types';
 
 const BASE_URL = 'http://localhost:8000';
+
+export async function listDocuments(): Promise<DocumentMeta[]> {
+    const response = await fetch(`${BASE_URL}/documents`);
+    if (!response.ok) return [];
+    const data = await response.json();
+    return data.documents ?? [];
+}
 
 export async function uploadFile(file: File): Promise<{ message: string } | { error: string }> {
     const formData = new FormData();

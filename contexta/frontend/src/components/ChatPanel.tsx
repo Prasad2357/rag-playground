@@ -5,18 +5,47 @@ import { ChatMessage, EmptyState, TypingIndicator } from '@/components/ChatMessa
 import { queryRAG } from '@/api';
 import type { Message, UploadedFile } from '@/types';
 
+const STORAGE_KEY = 'contexta_chat_history';
+
+/** Load messages from localStorage, reviving Date strings → Date objects. */
+function loadMessages(): Message[] {
+    try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return [];
+        const parsed = JSON.parse(raw) as Message[];
+        return parsed.map(m => ({ ...m, timestamp: new Date(m.timestamp) }));
+    } catch {
+        return [];
+    }
+}
+
+/** Persist messages to localStorage. */
+function saveMessages(messages: Message[]) {
+    try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
+    } catch {
+        // Silently ignore storage quota errors.
+    }
+}
+
 interface ChatPanelProps {
     files: UploadedFile[];
 }
 
 export function ChatPanel({ files }: ChatPanelProps) {
-    const [messages, setMessages] = useState<Message[]>([]);
+    // Initialise from localStorage so chat survives hard refreshes.
+    const [messages, setMessages] = useState<Message[]>(loadMessages);
     const [input, setInput] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const bottomRef = useRef<HTMLDivElement>(null);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
 
     const hasReadyFiles = files.some(f => f.status === 'ready');
+
+    // Sync every messages change to localStorage.
+    useEffect(() => {
+        saveMessages(messages);
+    }, [messages]);
 
     useEffect(() => {
         bottomRef.current?.scrollIntoView({ behavior: 'smooth' });

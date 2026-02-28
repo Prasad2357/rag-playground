@@ -17,6 +17,7 @@ from langchain_classic.chains import RetrievalQA
 
 from fastapi import APIRouter, UploadFile, File, Query
 from typing import List, Optional
+import time
 
 # ---------- ENV ----------
 load_dotenv()
@@ -94,6 +95,34 @@ async def upload_file(file: UploadFile = File(...)):
     vectorstore = None
 
     return {"message": "File uploaded and indexed successfully"}
+
+
+# ============================================================
+# List Documents Endpoint
+# ============================================================
+
+@router.get("/documents")
+def list_documents():
+    """Return metadata for every file currently in the uploads folder."""
+    if not os.path.exists(UPLOAD_PATH):
+        return {"documents": []}
+
+    docs = []
+    for fname in os.listdir(UPLOAD_PATH):
+        fpath = os.path.join(UPLOAD_PATH, fname)
+        if not os.path.isfile(fpath):
+            continue
+        ext = os.path.splitext(fname)[1].lower()
+        if ext not in ALLOWED_TYPES:
+            continue
+        stat = os.stat(fpath)
+        docs.append({
+            "name": fname,
+            "size": stat.st_size,
+            "uploadedAt": stat.st_mtime,  # Unix timestamp
+        })
+
+    return {"documents": docs}
 
 
 # ============================================================
